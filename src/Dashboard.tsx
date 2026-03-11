@@ -36,8 +36,9 @@ export default function Dashboard() {
         setLoading(false);
       }
     } catch (err: any) {
-      setError(`Failed to load settings: ${err.message}`);
-      setLoading(false);
+      // Fallback to hardcoded URL if Supabase fails (e.g., on Netlify without env vars)
+      console.warn("Supabase not available, using fallback URL:", err.message);
+      setSheetsUrl("https://docs.google.com/spreadsheets/d/e/2PACX-1vSKLmBtPdvgmuTBTkCE8AjE3acbGJJu_gG3tkN3L_SBsYzB6sNAUCcYRdBxaxEAubGX2CnRJnWyK1wJ/pub?gid=835041077&single=true&output=csv");
     }
   }
 
