@@ -1378,7 +1378,13 @@ export default function App() {
             <input type="text" value={sheetsUrl} onChange={e => setSheetsUrl(e.target.value)} placeholder="https://docs.google.com/spreadsheets/d/.../pub?gid=0&single=true&output=csv" style={{ width:"100%", background:"#0D0C0A", border:"1px solid #2A2720", color:"#E8E0D0", fontFamily:"monospace", fontSize:"11px", padding:"10px 12px", outline:"none", borderRadius:"2px", marginBottom:"12px" }} />
             <div style={{ display:"flex", gap:"10px" }}>
               <button onClick={() => saveSheetsUrl(sheetsUrl)} style={{ background:"#2E7D5F", border:"none", color:"#FFFFFF", fontFamily:"monospace", fontSize:"10px", letterSpacing:"1.5px", textTransform:"uppercase", padding:"11px 22px", cursor:"pointer", fontWeight:700, borderRadius:"2px" }}>Save & Connect</button>
-              {sheetsUrl && <button onClick={() => { setSheetsUrl(""); try { localStorage.removeItem("ask_sheets_url"); } catch {} setTenders(TENDERS); setLiveStatus(null); setLiveMsg(""); }} style={{ background:"none", border:"1px solid #2A2720", color:"#6B6560", fontFamily:"monospace", fontSize:"9px", letterSpacing:"1px", textTransform:"uppercase", padding:"11px 16px", cursor:"pointer", borderRadius:"2px" }}>Disconnect</button>}
+              {sheetsUrl && <button onClick={async () => {
+                setSheetsUrl("");
+                await supabase.from("app_settings").update({ value: "", updated_at: new Date().toISOString() }).eq("key", "google_sheets_url");
+                setTenders(TENDERS);
+                setLiveStatus(null);
+                setLiveMsg("");
+              }} style={{ background:"none", border:"1px solid #2A2720", color:"#6B6560", fontFamily:"monospace", fontSize:"9px", letterSpacing:"1px", textTransform:"uppercase", padding:"11px 16px", cursor:"pointer", borderRadius:"2px" }}>Disconnect</button>}
             </div>
             {liveStatus === "error" && <div style={{ marginTop:"10px", fontFamily:"monospace", fontSize:"10px", color:"#E05C4A" }}>{liveMsg}</div>}
           </Card>
