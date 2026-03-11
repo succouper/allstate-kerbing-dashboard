@@ -369,7 +369,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("tenders");
   const [modal, setModal] = useState(null);
   const [tenders, setTenders] = useState(TENDERS);
-  const [sheetsUrl, setSheetsUrl] = useState("");
+  const [sheetsUrl, setSheetsUrl] = useState("https://docs.google.com/spreadsheets/d/e/2PACX-1vSKLmBtPdvgmuTBTkCE8AjE3acbGJJu_gG3tkN3L_SBsYzB6sNAUCcYRdBxaxEAubGX2CnRJnWyK1wJ/pub?gid=835041077&single=true&output=csv");
   const [liveStatus, setLiveStatus] = useState(null);
   const [liveMsg, setLiveMsg] = useState("");
   const [lastSync, setLastSync] = useState(null);
